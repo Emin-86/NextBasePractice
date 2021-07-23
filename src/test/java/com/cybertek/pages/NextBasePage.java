@@ -13,16 +13,20 @@ public class NextBasePage {
     public NextBasePage() {
         PageFactory.initElements(Driver.getDriver(),this);
     }
-
-    @FindBy(xpath = "//input[@class='login-inp']")
+    @FindBy(name = "USER_LOGIN")
     public WebElement login;
 
-    @FindBy(xpath = "//input[@type='password']")
+    @FindBy (name = "USER_PASSWORD")
     public WebElement password;
 
+    @FindBy (id = "USER_REMEMBER")
+    public WebElement rememberbutton;
+
+    @FindBy (xpath = "//a[@class='login-link-forgot-pass']")
+    public WebElement forgotpasswor;
 
     @FindBy(xpath = "//input[@type='submit']")
-    public WebElement submit;
+    public WebElement loginButton;
 
     @FindBy(xpath = "//span[@class='user-name']")
     public WebElement profileButton;
@@ -30,19 +34,9 @@ public class NextBasePage {
     @FindBy(xpath = "//span[.='Log out']")
     public WebElement logOutButton;
 
-    @FindBy(xpath = "//label[.='Remember me on this computer']")
-    public WebElement remember;
+    @FindBy(xpath = "//input[@name='USER_REMEMBER']")
+    public WebElement checkRemember;
 
-
-    @FindBy(xpath = "//a[.='Forgot your password?']")
-    public WebElement forgotPassword;
-
-
-    @FindBy(xpath = "//div[@class='feed-add-post-text']")
-    public WebElement messageBox;
-
-    @FindBy(id = "blog-submit-button-save")
-    public WebElement messageSend;
-
-
+    @FindBy(xpath = "//a[@class='login-link-forgot-pass']")
+    public WebElement forgotPassLink;
 }
