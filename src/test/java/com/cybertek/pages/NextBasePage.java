@@ -38,7 +38,7 @@ public class NextBasePage {
     public WebElement checkRemember;
 
     @FindBy(xpath = "//a[@class='login-link-forgot-pass']")
-    public WebElement forgotPassLink;
+
 
     @FindBy(id = "microoPostFormLHE_blogPostForm_inner")
     public WebElement sendMessageLocator;
