@@ -39,4 +39,24 @@ public class NextBasePage {
 
     @FindBy(xpath = "//a[@class='login-link-forgot-pass']")
     public WebElement forgotPassLink;
+
+    @FindBy(id = "microoPostFormLHE_blogPostForm_inner")
+    public WebElement sendMessageLocator;
+
+    @FindBy(xpath = "//iframe[@class='bx-editor-iframe']")
+    public WebElement messageIframe;
+
+    @FindBy(xpath = "//button[@id='blog-submit-button-save']")
+    public WebElement sendMessageButton;
+
+    @FindBy(xpath = "//body[@contenteditable='true']")
+    public WebElement writeMessage;
+
+    @FindBy(xpath = "(//div[@class='feed-post-text-block-inner-inner'])[1]")
+    public WebElement verifySendMessage;
+
+
+
+
+
 }
