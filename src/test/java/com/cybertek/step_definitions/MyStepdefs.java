@@ -108,7 +108,7 @@ public class MyStepdefs {
 
         System.out.println(actualMessage.getText());
         Assert.assertTrue(String.valueOf(actualMessage),true);
-        System.out.println(nextBasePage.getClass());
+        System.out.println(nextBasePage.getClass().getName());
 
     }
 
