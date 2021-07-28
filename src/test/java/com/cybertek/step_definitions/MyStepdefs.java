@@ -50,7 +50,11 @@ public class MyStepdefs {
         String actualTitle = Driver.getDriver().getTitle();
         System.out.println("actualTitle = " + actualTitle);
 
+
         Assert.assertEquals(actualTitle, expectedTitle);
+
+        Assert.assertEquals(actualTitle,expectedTitle);
+
 
         nextBasePage.profileButton.click();
         nextBasePage.logOutButton.click();
@@ -60,7 +64,11 @@ public class MyStepdefs {
     public void verifyUserCanCheckOption(String arg0) {
 
 
+
         //  nextBasePage.checkRemember.click();
+
+     //  nextBasePage.checkRemember.click();
+
 
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='USER_REMEMBER']")));
@@ -73,8 +81,13 @@ public class MyStepdefs {
         BrowserUtils.sleep(2);
         nextBasePage.forgotPassLink.click();
 
+
         String expectedTitle = "Get Password";
         String actualTitle = Driver.getDriver().getTitle();
+
+        String expectedTitle= "Get Password";
+        String actualTitle=Driver.getDriver().getTitle();
+
 
 
         Assert.assertTrue(actualTitle.equals(expectedTitle));
@@ -82,15 +95,18 @@ public class MyStepdefs {
         BrowserUtils.sleep(1);
         Driver.getDriver().navigate().back();
 
+
         String password = ConfigurationReader.getProperty("password");
         nextBasePage.password.sendKeys(password);
         nextBasePage.loginButton.click();
+
 
 
     }
 
     @Given("Verify user an send message by clicking {string} tab")
     public void verifyUserAnSendMessageByClickingTab(String arg0) {
+
         nextBasePage.sendMessageLocator.click();
 
         Driver.getDriver().switchTo().frame(nextBasePage.messageIframe);
@@ -108,6 +124,7 @@ public class MyStepdefs {
 
         System.out.println(actualMessage.getText());
         Assert.assertTrue(String.valueOf(actualMessage),true);
+
 
 
     }
