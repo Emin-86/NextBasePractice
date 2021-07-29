@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 
         tags = "@all"
 
-        tags = "@us001"
+
 
 )
 public class CukesRunner {

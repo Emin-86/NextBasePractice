@@ -22,6 +22,8 @@ public class MyStepdefs {
 
     NextBasePage nextBasePage = new NextBasePage();
 
+
+
     @Given("User in login page")
     public void userInLoginPage() {
 
@@ -50,11 +52,7 @@ public class MyStepdefs {
         String actualTitle = Driver.getDriver().getTitle();
         System.out.println("actualTitle = " + actualTitle);
 
-
         Assert.assertEquals(actualTitle, expectedTitle);
-
-        Assert.assertEquals(actualTitle,expectedTitle);
-
 
         nextBasePage.profileButton.click();
         nextBasePage.logOutButton.click();
@@ -64,11 +62,7 @@ public class MyStepdefs {
     public void verifyUserCanCheckOption(String arg0) {
 
 
-
         //  nextBasePage.checkRemember.click();
-
-     //  nextBasePage.checkRemember.click();
-
 
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='USER_REMEMBER']")));
@@ -79,15 +73,10 @@ public class MyStepdefs {
     @Then("Verify user can access to {string} link page")
     public void verifyUserCanAccessToLinkPage(String arg0) {
         BrowserUtils.sleep(2);
-        nextBasePage.forgotPassLink.click();
-
+        nextBasePage.forgotpasswor.click();
 
         String expectedTitle = "Get Password";
         String actualTitle = Driver.getDriver().getTitle();
-
-        String expectedTitle= "Get Password";
-        String actualTitle=Driver.getDriver().getTitle();
-
 
 
         Assert.assertTrue(actualTitle.equals(expectedTitle));
@@ -95,28 +84,25 @@ public class MyStepdefs {
         BrowserUtils.sleep(1);
         Driver.getDriver().navigate().back();
 
-
         String password = ConfigurationReader.getProperty("password");
         nextBasePage.password.sendKeys(password);
         nextBasePage.loginButton.click();
-
 
 
     }
 
     @Given("Verify user an send message by clicking {string} tab")
     public void verifyUserAnSendMessageByClickingTab(String arg0) {
-
         nextBasePage.sendMessageLocator.click();
 
         Driver.getDriver().switchTo().frame(nextBasePage.messageIframe);
         BrowserUtils.sleep(1);
         nextBasePage.writeMessage.sendKeys("hello");
         BrowserUtils.sleep(1);
-         Driver.getDriver().switchTo().defaultContent();
+        Driver.getDriver().switchTo().defaultContent();
 
-         nextBasePage.sendMessageButton.click();
-         BrowserUtils.sleep(2);
+        nextBasePage.sendMessageButton.click();
+        BrowserUtils.sleep(2);
 
         String expectedSendMessage="hello";
         WebElement actualMessage = Driver.getDriver().findElement(By.xpath("(//div[@class='feed-post-text-block-inner-inner'])[1]"));
@@ -124,8 +110,6 @@ public class MyStepdefs {
 
         System.out.println(actualMessage.getText());
         Assert.assertTrue(String.valueOf(actualMessage),true);
-
-
 
     }
 
