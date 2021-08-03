@@ -1,46 +1,33 @@
 package com.cybertek.step_definitions;
 
+import com.cybertek.pages.LoginPage;
 import com.cybertek.pages.NextBasePage;
 import com.cybertek.utilities.BrowserUtils;
 import com.cybertek.utilities.ConfigurationReader;
 import com.cybertek.utilities.Driver;
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.awt.*;
+import java.net.MalformedURLException;
 
 public class MyStepdefs {
 
     NextBasePage nextBasePage = new NextBasePage();
-
-
+    LoginPage loginPage = new LoginPage();
 
     @Given("User in login page")
-    public void userInLoginPage() {
+    public void userInLoginPage() throws MalformedURLException {
 
-        String url = ConfigurationReader.getProperty("nextBaseUrl");
-        Driver.getDriver().get(url);
-
-
-    }
-
-    @When("User enters  {string},{string}")
-    public void userEnters(String arg0, String arg1) {
-        String username = ConfigurationReader.getProperty("username");
-        String password = ConfigurationReader.getProperty("password");
-
-        nextBasePage.login.sendKeys(username);
-        nextBasePage.password.sendKeys(password);
-
+        loginPage.login_method(ConfigurationReader.getProperty("username"),ConfigurationReader.getProperty("password"));
     }
 
     @And("Verify user logged in to the app")
@@ -48,14 +35,13 @@ public class MyStepdefs {
 
         nextBasePage.loginButton.click();
 
-        String expectedTitle = "(53) Portal";
+
         String actualTitle = Driver.getDriver().getTitle();
         System.out.println("actualTitle = " + actualTitle);
 
-        Assert.assertEquals(actualTitle, expectedTitle);
-
         nextBasePage.profileButton.click();
         nextBasePage.logOutButton.click();
+
     }
 
     @When("verify user can check {string} option")
@@ -67,6 +53,7 @@ public class MyStepdefs {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='USER_REMEMBER']")));
         element.click();
+        BrowserUtils.sleep(2);
 
     }
 
@@ -87,95 +74,66 @@ public class MyStepdefs {
         String password = ConfigurationReader.getProperty("password");
         nextBasePage.password.sendKeys(password);
         nextBasePage.loginButton.click();
+        BrowserUtils.sleep(2);
 
 
     }
 
     @Given("Verify user an send message by clicking {string} tab")
     public void verifyUserAnSendMessageByClickingTab(String arg0) {
-        nextBasePage.sendMessageLocator.click();
+        //nextBasePage.sendMessageLocator.click();
+
+        nextBasePage.messageTab.click();
 
         Driver.getDriver().switchTo().frame(nextBasePage.messageIframe);
         BrowserUtils.sleep(1);
-        nextBasePage.writeMessage.sendKeys("hello");
-        BrowserUtils.sleep(1);
-        Driver.getDriver().switchTo().defaultContent();
 
+        Faker faker = new Faker();
+        faker.funnyName().name();
+
+        nextBasePage.writeMessage.sendKeys(faker.funnyName().name());
+        BrowserUtils.sleep(1);
+
+        String expected= nextBasePage.textFromMessage.getText();
+
+
+
+        Driver.getDriver().switchTo().defaultContent();
+        BrowserUtils.sleep(2);
         nextBasePage.sendMessageButton.click();
         BrowserUtils.sleep(2);
 
-        String expectedSendMessage="hello";
-        WebElement actualMessage = Driver.getDriver().findElement(By.xpath("(//div[@class='feed-post-text-block-inner-inner'])[1]"));
-        BrowserUtils.sleep(2);
-
-        System.out.println(actualMessage.getText());
-        Assert.assertTrue(String.valueOf(actualMessage),true);
-
+        // Assert.assertTrue(nextBasePage.sendMessageButton.isDisplayed());
     }
 
     @And("Verify user can cancel message")
     public void verifyUserCanCancelMessage() {
+        nextBasePage.MessageTab.click();
+        BrowserUtils.sleep(3);
+        nextBasePage.cancelButton.click();
+    }
+    @Then("Veriy users can attach link by clicking on the link icon")
+    public void veriy_users_can_attach_link_by_clicking_on_the_link_icon() {
+        nextBasePage.MessageTab.click();
+        BrowserUtils.sleep(1);
+        nextBasePage.linkButton.click();
+        BrowserUtils.sleep(2);
+
+        String childWindow = Driver.getDriver().getWindowHandle();
+        Driver.getDriver().switchTo().window(childWindow);
+        BrowserUtils.sleep(2);
+        nextBasePage.linkMessage.sendKeys("google.com");
+        BrowserUtils.sleep(1);
+        nextBasePage.linkSaveButton.click();
+
+        Driver.getDriver().navigate().refresh();
+        Alert alert = Driver.getDriver().switchTo().alert();
+        alert.accept();
+
+
     }
 
-    @Then("Verify user can attach link by clicking on the link icon")
-    public void verifyUserCanAttachLinkByClickingOnTheLinkIcon() {
-    }
-
-    @Given("Verify user can search a valid info from search box")
-    public void verifyUserCanSearchAValidInfoFromSearchBox() {
-    }
-
-    @Then("Verify user get menu item and suggested modules when type in the box")
-    public void verifyUserGetMenuItemAndSuggestedModulesWhenTypeInTheBox() {
-    }
-
-    @Given("Verify users can write poll message title with question & answer")
-    public void verifyUsersCanWritePollMessageTitleWithQuestionAnswer() {
-    }
-
-    @And("Verify users can check {string}")
-    public void verifyUsersCanCheck(String arg0) {
-    }
-
-    @And("Verify users can add questions")
-    public void verifyUsersCanAddQuestions() {
-    }
-
-    @Then("Verify users can cancel poll")
-    public void verifyUsersCanCancelPoll() {
-    }
-
-    @Given("Verify users can select an answer and vote for a poll")
-    public void verifyUsersCanSelectAnAnswerAndVoteForAPoll() {
-    }
-
-    @And("Verify users can vote again")
-    public void verifyUsersCanVoteAgain() {
-    }
-
-    @Then("Verify poll owner can stop a poll")
-    public void verifyPollOwnerCanStopAPoll() {
-    }
-
-    @Given("Verify user can clock in")
-    public void verifyUserCanClockIn() {
-    }
-
-    @And("Verify users can clock out")
-    public void verifyUsersCanClockOut() {
-    }
-
-    @And("Verify users can edit Today's task under daily plan")
-    public void verifyUsersCanEditTodaySTaskUnderDailyPlan() {
-    }
-
-    @And("Verify users can add events")
-    public void verifyUsersCanAddEvents() {
-    }
-
-    @Then("Verify users  can edit workday starting and ending time")
-    public void verifyUsersCanEditWorkdayStartingAndEndingTime() {
     }
 
 
-}
+

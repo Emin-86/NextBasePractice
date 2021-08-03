@@ -40,6 +40,9 @@ public class NextBasePage {
     @FindBy(xpath = "//a[@class='login-link-forgot-pass']")
     public WebElement forgotPassLink;
 
+    @FindBy(xpath = "//span[@id='feed-add-post-form-tab-message']")
+    public WebElement messageTab;
+
     @FindBy(id = "microoPostFormLHE_blogPostForm_inner")
     public WebElement sendMessageLocator;
 
@@ -52,8 +55,23 @@ public class NextBasePage {
     @FindBy(xpath = "//body[@contenteditable='true']")
     public WebElement writeMessage;
 
-    @FindBy(xpath = "(//div[@class='feed-post-text-block-inner-inner'])[1]")
-    public WebElement verifySendMessage;
+    @FindBy(xpath = "//button[@id='blog-submit-button-cancel']")
+    public WebElement cancelButton;
+
+    @FindBy(xpath = "//span[@title='Link']")
+    public WebElement linkButton;
+
+    @FindBy(xpath = "//span[@id='feed-add-post-form-tab-message']")
+    public WebElement MessageTab;
+
+    @FindBy(xpath = "//input[@id='undefined']")
+    public WebElement linkSaveButton;
+
+    @FindBy(xpath = "//input[@id='linkidPostFormLHE_blogPostForm-href']")
+    public WebElement linkMessage;
+
+    @FindBy(xpath = "//div[.='Tad Moore']")
+    public WebElement textFromMessage;
 
 
 

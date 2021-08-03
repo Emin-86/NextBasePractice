@@ -1,12 +1,24 @@
 package com.cybertek.step_definitions;
 
+import com.cybertek.utilities.ConfigurationReader;
 import com.cybertek.utilities.Driver;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
+
+    @Before
+    public void setup(){
+        String url = ConfigurationReader.getProperty("nextBaseUrl");
+        Driver.getDriver().get(url);
+    }
+
+
+
+
     @After
     public void tearDownScenario(Scenario scenario){
 
